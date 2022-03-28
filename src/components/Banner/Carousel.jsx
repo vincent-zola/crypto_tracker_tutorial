@@ -2,10 +2,10 @@
 
 import React from "react";
 
-const Carusel = () => {
+const Carousel = () => {
   // * ========== HTML ==========
 
-  return <div>Carusel</div>;
+  return <div>Carousel</div>;
 };
 
-export default Carusel;
+export default Carousel;

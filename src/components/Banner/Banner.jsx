@@ -2,6 +2,7 @@
 
 import { Container, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
+import Carousel from "./Carousel";
 
 // * ========== STYLES ==========
 
@@ -57,6 +58,7 @@ const Banner = () => {
             Get all the Info regarding your favorite Crypto Coins
           </Typography>
         </div>
+        <Carousel />
       </Container>
     </div>
   );
