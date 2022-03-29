@@ -53,7 +53,7 @@ const Carousel = () => {
     fetchTrendingCoins();
   }, [currency]);
 
-  console.log(trending);
+  
 
   // * ========== ALICE CAROUSEL ==========
 
