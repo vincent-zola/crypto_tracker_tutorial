@@ -1,4 +1,10 @@
+// * ========== IMPORTS ==========
+
 import React, { createContext, useContext, useEffect, useState } from "react";
+
+
+// * ========== VARIABLES & FUNCTIONS ==========
+
 // create Context, save it to a variable
 const Crypto = createContext();
 
