@@ -15,6 +15,7 @@ import {
   ThemeProvider,
   Typography,
 } from "@material-ui/core";
+import { Pagination } from "@material-ui/lab";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -33,6 +34,8 @@ const CoinsTable = () => {
   const [search, setSearch] = useState("");
   // will redirect to individual coin page
   const history = useHistory();
+  // for page-number
+  const [page, setPage] = useState(1);
 
   // use CryptoState to import the State from Context component and extract the values
   const { currency, symbol } = CryptoState();
@@ -73,6 +76,12 @@ const CoinsTable = () => {
       fontFamily: "Montserrat",
       "&:hover": {
         backgroundColor: "#131111",
+      },
+    },
+    // make page numbers golden
+    pagination: {
+      "& .MuiPaginationItem-root": {
+        color: "gold",
       },
     },
   }));
@@ -147,86 +156,113 @@ const CoinsTable = () => {
                 {/* Rows of Coins */}
                 <TableBody>
                   {/* map on coins */}
-                  {handleSearch().map((row) => {
-                    // price_change... is a key from fetched data
-                    const profit = row.price_change_percentage_24h > 0;
+                  {/* display just 10 coins per page ex. 0 to 10, 10 not inclusive*/}
+                  {handleSearch()
+                    .slice((page - 1) * 10, (page - 1) * 10 + 10)
+                    .map((row) => {
+                      // price_change... is a key from fetched data
+                      const profit = row.price_change_percentage_24h > 0;
 
-                    return (
-                      /* the x axis, the rows of coins */
-                      <TableRow
-                        // id: "bitcoin" for example
-                        onClick={() => history.push(`/coins/${row.id}`)}
-                        className={classes.row}
-                        key={row.name}
-                      >
-                        {/* ===== Coin ===== */}
-
-                        <TableCell
-                          // <th>: The Table Header element
-                          component="th"
-                          scope="row"
-                          style={{
-                            display: "flex",
-                            gap: 15,
-                          }}
+                      return (
+                        /* the x axis, the rows of coins */
+                        <TableRow
+                          // id: "bitcoin" for example
+                          onClick={() => history.push(`/coins/${row.id}`)}
+                          className={classes.row}
+                          key={row.name}
                         >
-                          <img
-                            src={row?.image}
-                            alt={row.name}
-                            height="50"
-                            style={{ marginBottom: 10 }}
-                          />
-                          <div
-                            style={{ display: "flex", flexDirection: "column" }}
+                          {/* ===== Coin ===== */}
+
+                          <TableCell
+                            // <th>: The Table Header element
+                            component="th"
+                            scope="row"
+                            style={{
+                              display: "flex",
+                              gap: 15,
+                            }}
                           >
-                            <span
+                            <img
+                              src={row?.image}
+                              alt={row.name}
+                              height="50"
+                              style={{ marginBottom: 10 }}
+                            />
+                            <div
                               style={{
-                                textTransform: "uppercase",
-                                fontSize: 22,
+                                display: "flex",
+                                flexDirection: "column",
                               }}
                             >
-                              {row.symbol}
-                            </span>
-                            <span style={{ color: "darkgray" }}>
-                              {row.name}
-                            </span>
-                          </div>
-                        </TableCell>
+                              <span
+                                style={{
+                                  textTransform: "uppercase",
+                                  fontSize: 22,
+                                }}
+                              >
+                                {row.symbol}
+                              </span>
+                              <span style={{ color: "darkgray" }}>
+                                {row.name}
+                              </span>
+                            </div>
+                          </TableCell>
 
-                        {/* ===== Price ===== */}
+                          {/* ===== Price ===== */}
 
-                        <TableCell align="right">
-                          {symbol} {/* fn imported from Carousel.jsx */}
-                          {numberWithCommas(row.current_price.toFixed(2))}
-                        </TableCell>
+                          <TableCell align="right">
+                            {symbol} {/* fn imported from Carousel.jsx */}
+                            {numberWithCommas(row.current_price.toFixed(2))}
+                          </TableCell>
 
-                        {/* ===== 24h Change ===== */}
+                          {/* ===== 24h Change ===== */}
 
-                        <TableCell
-                          align="right"
-                          style={{
-                            color: profit > 0 ? "rgb(14,203,129)" : "red",
-                            fontWeight: 500,
-                          }}
-                        >
-                          {profit && "+"}
-                          {row.price_change_percentage_24h.toFixed(2)}%
-                        </TableCell>
+                          <TableCell
+                            align="right"
+                            style={{
+                              color: profit > 0 ? "rgb(14,203,129)" : "red",
+                              fontWeight: 500,
+                            }}
+                          >
+                            {profit && "+"}
+                            {row.price_change_percentage_24h.toFixed(2)}%
+                          </TableCell>
 
-                        {/* ===== Market Cap ===== */}
+                          {/* ===== Market Cap ===== */}
 
-                        <TableCell align="right">
-                          {symbol} {/* fn imported from Carousel.jsx */}
-                          {numberWithCommas(row.market_cap)}
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
+                          <TableCell align="right">
+                            {symbol} {/* fn imported from Carousel.jsx */}
+                            {numberWithCommas(row.market_cap)}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
                 </TableBody>
               </Table>
             )
           }
         </TableContainer>
+        {/* @material-ui/lab */}
+        {/* page number */}
+        {/* toFixed(0) = no decimals */}
+        <Pagination
+          style={{
+            padding: 20,
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+          // basically the Pagination contains ul's
+          classes={{ ul: classes.pagination }}
+          count={(handleSearch()?.length / 10).toFixed(0)}
+          // syntax is an MUI thing...
+          // function(event: object) => void
+          onChange={(_, value) => {
+            setPage(value);
+            // after change windows scrolls 450px
+            window.scroll(0, 450);
+          }}
+        />
       </Container>
     </ThemeProvider>
   );
