@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import CoinInfo from "../components/Banner/CoinInfo";
 import { SingleCoin } from "../config/api";
 import { CryptoState } from "../CryptoContext";
-// import ReactHtmlParser from "react-html-parser";
+
 
 // * ========== VARIABLES & FUNCTIONS ==========
 
@@ -25,11 +25,13 @@ const CoinPage = () => {
     setCoin(data);
   };
 
-  console.log(coin);
+  
 
   useEffect(() => {
     fetchCoin();
   }, []);
+
+  console.log(coin);
 
   // * ========== STYLES ==========
   // "theme" argument comes from MUI
@@ -86,8 +88,9 @@ const CoinPage = () => {
           className={classes.description}
         >
           {/* split text at dot-space and return first one */}
-          {/* wrapping it in the react-html-parser library */}
-          {coin?.description.en.split(". ")[0]}
+          {/* replaced his library with dangerouslySetInnerHTML, it converts HTML in strings to React components */}
+          <div dangerouslySetInnerHTML={{__html: coin?.description.en.split(". ")[0]}} ></div>
+          
         </Typography>
       </div>
 
