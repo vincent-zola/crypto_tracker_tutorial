@@ -1,3 +1,5 @@
+// * ========== IMPORTS ==========
+
 import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Homepage from "./Pages/Homepage";
@@ -6,6 +8,9 @@ import "./App.css";
 import { makeStyles } from "@material-ui/core";
 
 function App() {
+
+  // * ========== STYLES ==========
+
   // Material UI
   const useStyles = makeStyles(() => ({
     App: {
@@ -16,6 +21,7 @@ function App() {
   }));
   // transfer styles to an obj
   const classes = useStyles();
+// * ========== HTML ==========
 
   return (
     <BrowserRouter>

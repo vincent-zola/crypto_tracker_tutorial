@@ -48,8 +48,6 @@ const CoinsTable = () => {
     setLoading(false);
   };
 
-  console.log(coins);
-
   // if currency state changes data fetches
   useEffect(() => {
     fetchCoins();
@@ -66,6 +64,8 @@ const CoinsTable = () => {
         coin.symbol.toLowerCase().includes(search.toLowerCase())
     );
   };
+
+  
 
   // * ========== STYLES ==========
 
@@ -254,7 +254,9 @@ const CoinsTable = () => {
           }}
           // basically the Pagination contains ul's
           classes={{ ul: classes.pagination }}
-          count={(handleSearch()?.length / 10).toFixed(0)}
+          // how many pages are there
+          // ! changed .toFixed(0) to Math.floor because Pagination will number not string
+          count={Math.floor((handleSearch()?.length / 10))}
           // syntax is an MUI thing...
           // function(event: object) => void
           onChange={(_, value) => {
