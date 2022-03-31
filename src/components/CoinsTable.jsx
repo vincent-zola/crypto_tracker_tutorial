@@ -37,6 +37,8 @@ const CoinsTable = () => {
   // for page-number
   const [page, setPage] = useState(1);
 
+  
+
   // use CryptoState to import the State from Context component and extract the values
   const { currency, symbol } = CryptoState();
 
@@ -255,7 +257,7 @@ const CoinsTable = () => {
           // basically the Pagination contains ul's
           classes={{ ul: classes.pagination }}
           // how many pages are there
-          // ! changed .toFixed(0) to Math.floor because Pagination will number not string
+          // ! changed .toFixed(0) to Math.floor because Pagination wants number, not string
           count={Math.floor((handleSearch()?.length / 10))}
           // syntax is an MUI thing...
           // function(event: object) => void

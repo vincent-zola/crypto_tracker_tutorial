@@ -1,5 +1,8 @@
 import React from 'react'
 
+
+
+
 const CoinInfo = () => {
   return (
     <div>CoinInfo</div>
