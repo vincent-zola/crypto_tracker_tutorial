@@ -143,7 +143,7 @@ const CoinInfo = ({ coin }) => {
                   // if day.value = days than true
                   selected={day.value === days}
                 >
-                  {/* innerText of button */}
+                  {/* innerText of button also children in the SelectButton.jsx */}
                   {day.label}
                 </SelectButton>
               ))}
