@@ -43,13 +43,14 @@ const Carousel = () => {
   // use CryptoState to import the State from Context component and extract the values
   const { currency, symbol } = CryptoState();
 
-  // fetching data with axios library
+  
+  // if currency state changes data fetches
+  useEffect(() => {
+    // fetching data with axios library
   const fetchTrendingCoins = async () => {
     const { data } = await axios.get(TrendingCoins(currency));
     setTrending(data);
   };
-  // if currency state changes data fetches
-  useEffect(() => {
     fetchTrendingCoins();
   }, [currency]);
 

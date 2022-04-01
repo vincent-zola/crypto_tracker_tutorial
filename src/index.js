@@ -7,11 +7,10 @@ import CryptoContext from "./CryptoContext";
 import "react-alice-carousel/lib/alice-carousel.css";
 
 ReactDOM.render(
-  <React.StrictMode>
-    {/* wrap entire App in CryptoContext component */}
-    <CryptoContext>
-      <App />
-    </CryptoContext>
-  </React.StrictMode>,
+  // wrap entire App in CryptoContext component
+  // removed reactStrickMode because React complaint about the MUI library
+  <CryptoContext>
+    <App />
+  </CryptoContext>,
   document.getElementById("root")
 );

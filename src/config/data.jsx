@@ -1,3 +1,5 @@
+// * used for creating 4 buttons in CoinInfo.jsx component
+
 export const chartDays = [
     {
       label: "24 Hours",

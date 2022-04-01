@@ -24,17 +24,18 @@ const CoinInfo = ({ coin }) => {
   // use CryptoState to import the State from Context component and extract the values
   const { currency } = CryptoState();
 
-  // ! this needs to be moved inside useEffect, probably
-  // fetching Chart data
+  
+
+
+  useEffect(() => {
+      // fetching Chart data
   const fetchHistoricData = async () => {
     const { data } = await axios.get(HistoricalChart(coin.id, days, currency));
     // we just want the prices
     setHistoricData(data.prices);
   };
-
-  useEffect(() => {
     fetchHistoricData();
-  }, [currency, days]);
+  }, [currency, days, coin.id]);
 
   // * ========== STYLES ==========
 

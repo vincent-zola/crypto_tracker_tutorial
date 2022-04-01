@@ -19,16 +19,15 @@ const CoinPage = () => {
   // use CryptoState to import the State from Context component and extract the values
   const { currency, symbol } = CryptoState();
 
-  // ! this needs to be moved inside useEffect, probably
-  // fetching single Coin data
-  const fetchCoin = async () => {
-    const { data } = await axios.get(SingleCoin(id));
-    setCoin(data);
-  };
-
   useEffect(() => {
+    // ! moved Fn inside useEffect so React doesn't complain
+    // fetching single Coin data
+    const fetchCoin = async () => {
+      const { data } = await axios.get(SingleCoin(id));
+      setCoin(data);
+    };
     fetchCoin();
-  }, []);
+  }, [id]);
 
   // * ========== STYLES ==========
   // "theme" argument comes from MUI
