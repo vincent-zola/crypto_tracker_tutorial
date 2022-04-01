@@ -19,6 +19,7 @@ const CoinPage = () => {
   // use CryptoState to import the State from Context component and extract the values
   const { currency, symbol } = CryptoState();
 
+  // ! this needs to be moved inside useEffect, probably
   // fetching single Coin data
   const fetchCoin = async () => {
     const { data } = await axios.get(SingleCoin(id));

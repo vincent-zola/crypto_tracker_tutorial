@@ -4,8 +4,7 @@ import "./index.css";
 import App from "./App";
 import CryptoContext from "./CryptoContext";
 // styles for carousel
-import 'react-alice-carousel/lib/alice-carousel.css';
-
+import "react-alice-carousel/lib/alice-carousel.css";
 
 ReactDOM.render(
   <React.StrictMode>
